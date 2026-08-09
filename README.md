@@ -3,6 +3,7 @@
 An external Omarchy Shell plugin that presents a fullscreen overview of
 workspaces and their windows. It supports keyboard navigation, window
 activation, and dragging windows between workspaces.
+<img width="1908" height="944" alt="image" src="https://github.com/user-attachments/assets/0d4a5e59-eb87-4e9d-9ced-c1ee1e287f01" />
 
 ## Demo
 
