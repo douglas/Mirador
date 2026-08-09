@@ -28,14 +28,14 @@ omarchy-shell shell rescanPlugins
 
 ## Launching the overview
 
-The overview can be opened with `Ctrl+Tab` or a three-finger swipe up on the
+The overview can be opened with `Shift+Tab` or a three-finger swipe up on the
 touchpad. A three-finger swipe down closes it.
 
 Add the keyboard binding to `~/.config/hypr/bindings.lua`:
 
 ```lua
 o.bind(
-  "CTRL + TAB",
+  "SHIFT + TAB",
   "Workspace overview",
   "omarchy-shell shell summon omarchy-overview '{}'"
 )
