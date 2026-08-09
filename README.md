@@ -27,7 +27,6 @@ with:
 
 ```bash
 omarchy plugin add https://github.com/sanjyay/omarchy-overview.git
-omarchy plugin enable omarchy-overview
 ```
 
 ## Open
