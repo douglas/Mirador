@@ -108,3 +108,7 @@ omarchy-shell shell summon omarchy-overview '{}'
 
 The plugin depends only on APIs and shared UI components provided by the
 Omarchy Shell. It does not require `hyprexpo`, `hyprpm`, or client polling.
+
+## License
+
+Omarchy Overview is available under the [MIT License](LICENSE).
