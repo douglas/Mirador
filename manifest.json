@@ -3,7 +3,7 @@
   "id": "omarchy-overview",
   "name": "Omarchy Overview",
   "version": "1.0.0",
-  "author": "Omarchy",
+  "author": "sanjyay",
   "description": "Visual overview of workspaces and their windows",
   "kinds": [
     "overlay"
