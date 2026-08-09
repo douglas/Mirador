@@ -20,7 +20,7 @@ For normal distribution, place these files in a Git repository and install it
 with:
 
 ```bash
-omarchy plugin add https://example.com/your/omarchy-overview.git
+omarchy plugin add https://github.com/sanjyay/omarchy-overview.git
 omarchy plugin enable omarchy-overview
 ```
 
