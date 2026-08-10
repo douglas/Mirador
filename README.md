@@ -7,7 +7,7 @@ activation, and dragging windows between workspaces.
 
 ## Demo
 
-https://github.com/user-attachments/assets/801a504a-c0d5-41f9-8cc2-a6e81ac64586
+
 
 ## Install
 
