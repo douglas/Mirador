@@ -153,7 +153,7 @@ Item {
     root.selectedCardIndex = -1
     root.opened = false
     if (root.shell && typeof root.shell.hide === "function")
-      root.shell.hide((root.manifest && root.manifest.id) || "omarchy-overview")
+      root.shell.hide((root.manifest && root.manifest.id) || "mirador")
   }
 
   function toggle() {

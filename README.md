@@ -1,4 +1,4 @@
-# Omarchy Overview
+# Mirador
 
 An external Omarchy Shell plugin that presents a fullscreen overview of
 workspaces and their windows. It supports keyboard navigation, window
@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/801a504a-c0d5-41f9-8cc2-a6e81ac64586
 Install through Omarchy:
 
 ```bash
-omarchy plugin add https://github.com/sanjyay/omarchy-overview.git
+omarchy plugin add https://github.com/sanjyay/Mirador.git
 ```
 
 Alternatively, install it manually by cloning this repository into your
@@ -22,8 +22,8 @@ Omarchy plugins directory:
 
 ```bash
 mkdir -p ~/.config/omarchy/plugins
-git clone https://github.com/sanjyay/omarchy-overview.git \
-  ~/.config/omarchy/plugins/omarchy-overview
+git clone https://github.com/sanjyay/Mirador.git \
+  ~/.config/omarchy/plugins/mirador
 omarchy-shell shell rescanPlugins
 ```
 
@@ -38,7 +38,7 @@ Add the keyboard binding to `~/.config/hypr/bindings.lua`:
 o.bind(
   "SHIFT + TAB",
   "Workspace overview",
-  "omarchy-shell shell summon omarchy-overview '{}'"
+  "omarchy-shell shell summon mirador '{}'"
 )
 ```
 
@@ -49,7 +49,7 @@ hl.gesture({
   fingers = 3,
   direction = "up",
   action = function()
-    hl.dispatch(hl.dsp.exec_cmd("omarchy-shell shell summon omarchy-overview '{}'"))
+    hl.dispatch(hl.dsp.exec_cmd("omarchy-shell shell summon mirador '{}'"))
   end,
 })
 
@@ -57,7 +57,7 @@ hl.gesture({
   fingers = 3,
   direction = "down",
   action = function()
-    hl.dispatch(hl.dsp.exec_cmd("omarchy-shell shell hide omarchy-overview"))
+    hl.dispatch(hl.dsp.exec_cmd("omarchy-shell shell hide mirador"))
   end,
 })
 ```
@@ -79,7 +79,7 @@ Edit the key combination in the first argument of `o.bind` in
 o.bind(
   "SUPER + TAB",
   "Workspace overview",
-  "omarchy-shell shell summon omarchy-overview '{}'"
+  "omarchy-shell shell summon mirador '{}'"
 )
 ```
 
@@ -91,7 +91,7 @@ hl.unbind("SUPER + TAB")
 o.bind(
   "SUPER + TAB",
   "Workspace overview",
-  "omarchy-shell shell summon omarchy-overview '{}'"
+  "omarchy-shell shell summon mirador '{}'"
 )
 ```
 
@@ -104,7 +104,7 @@ omarchy menu keybindings --print
 You can also open the overview directly from a terminal with:
 
 ```bash
-omarchy-shell shell summon omarchy-overview '{}'
+omarchy-shell shell summon mirador '{}'
 ```
 
 The plugin depends only on APIs and shared UI components provided by the
@@ -112,4 +112,4 @@ Omarchy Shell. It does not require `hyprexpo`, `hyprpm`, or client polling.
 
 ## License
 
-Omarchy Overview is available under the [MIT License](LICENSE).
+Mirador is available under the [MIT License](LICENSE).
