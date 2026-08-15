@@ -20,6 +20,7 @@ Item {
   property var draggedToplevel: null
   property int selectedCardIndex: -1
 
+  readonly property int maxWorkspaceId: 9
   readonly property var workspaceModel: root.workspaceIds()
   readonly property int workspaceCount: workspaceModel.length
   readonly property int nextWorkspaceId: root.nextWorkspaceAfter(workspaceModel)
@@ -29,16 +30,16 @@ Item {
     return ids
   }
   readonly property int cardCount: overviewCardModel.length
-  readonly property real cardAspectRatio: 1.55
-  readonly property real outerMargin: Math.max(Style.gapsOut, Style.spacing.panelPadding)
-  readonly property real gridSpacing: Style.spacing.lg
+  readonly property real outerMargin: Style.space(8)
+  readonly property real gridSpacing: Style.space(8)
   readonly property real availableWidth: Math.max(1, panel.width - outerMargin * 2)
   readonly property real availableHeight: Math.max(1, panel.height - outerMargin * 2)
-  readonly property int columns: Math.max(1, Math.min(cardCount,
-    Math.ceil(Math.sqrt(cardCount * availableWidth / availableHeight / cardAspectRatio))))
-  readonly property int rows: Math.max(1, Math.ceil(cardCount / columns))
+  readonly property int columns: 3
+  readonly property int rows: 3
+  readonly property real cardAspectRatio: Math.max(1,
+    (availableWidth - gridSpacing * (columns - 1))
+      / Math.max(1, availableHeight - gridSpacing * (rows - 1)))
   readonly property real cardWidth: Math.max(1, Math.min(
-    Style.space(520),
     (availableWidth - gridSpacing * (columns - 1)) / columns,
     ((availableHeight - gridSpacing * (rows - 1)) / rows) * cardAspectRatio))
   readonly property real cardHeight: Math.max(1, cardWidth / cardAspectRatio)
@@ -52,12 +53,12 @@ Item {
   }
 
   function workspaceIds() {
-    var ids = [1, 2, 3, 4, 5]
+    var ids = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     var values = Hyprland.workspaces.values
 
     for (var i = 0; i < values.length; i++) {
       var id = values[i].id
-      if (id > 0 && id <= 10 && ids.indexOf(id) === -1) ids.push(id)
+      if (id > 0 && id <= root.maxWorkspaceId && ids.indexOf(id) === -1) ids.push(id)
     }
 
     ids.sort(function(left, right) { return left - right })
@@ -67,7 +68,7 @@ Item {
   function nextWorkspaceAfter(ids) {
     if (!ids || ids.length === 0) return -1
     var next = ids[ids.length - 1] + 1
-    return next <= 10 ? next : -1
+    return next <= root.maxWorkspaceId ? next : -1
   }
 
   function cardIndexAfterMove(index, dx, dy, count, columnCount) {
@@ -119,7 +120,7 @@ Item {
   }
 
   function dispatchWorkspace(workspaceId) {
-    if (workspaceId <= 0 || workspaceId > 10) return false
+    if (workspaceId <= 0 || workspaceId > root.maxWorkspaceId) return false
     if (Hyprland.usingLua)
       Hyprland.dispatch("hl.dsp.focus({ workspace = \"" + workspaceId + "\" })")
     else
@@ -199,7 +200,7 @@ Item {
   function moveWindowToWorkspace(toplevel, workspaceId) {
     var address = root.normalizedAddress(toplevel)
     var sourceId = root.sourceWorkspaceId(toplevel)
-    if (!address || workspaceId <= 0 || workspaceId > 10 || sourceId === workspaceId) return false
+    if (!address || workspaceId <= 0 || workspaceId > root.maxWorkspaceId || sourceId === workspaceId) return false
 
     root.draggedToplevel = null
     if (Hyprland.usingLua) {
