@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 import Quickshell.Wayland
 import qs.Commons
 import qs.Ui
@@ -9,6 +10,9 @@ Item {
   id: root
 
   property string omarchyPath: Quickshell.env("OMARCHY_PATH")
+  readonly property string stateHome: Quickshell.env("HOME") + "/.local/state"
+  readonly property string currentBackgroundLink: stateHome + "/omarchy/current/background"
+  property string wallpaperPath: ""
   property var shell: null
   property var manifest: null
   property bool opened: false
@@ -134,10 +138,15 @@ Item {
     return screens.length > 0 ? screens[0] : null
   }
 
+  function refreshWallpaper() {
+    if (!wallpaperPathProc.running) wallpaperPathProc.running = true
+  }
+
   function open(payloadJson) {
     root.targetScreen = root.focusedScreen()
     root.draggedToplevel = null
     root.selectedCardIndex = root.initialSelectedCardIndex()
+    root.refreshWallpaper()
     root.opened = true
     Qt.callLater(function() { keyCatcher.forceActiveFocus() })
   }
@@ -222,9 +231,17 @@ Item {
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     exclusionMode: ExclusionMode.Ignore
 
+    Image {
+      anchors.fill: parent
+      source: root.wallpaperPath ? Util.fileUrl(root.wallpaperPath) : ""
+      fillMode: Image.PreserveAspectCrop
+      asynchronous: true
+      cache: false
+    }
+
     Rectangle {
       anchors.fill: parent
-      color: Color.menu.scrim
+      color: Util.alpha(Color.menu.scrim, 0.58)
     }
 
     MouseArea {
@@ -283,6 +300,14 @@ Item {
     target: root.draggedToplevel
     ignoreUnknownSignals: true
     function onDestroyed() { root.draggedToplevel = null }
+  }
+
+  Process {
+    id: wallpaperPathProc
+    command: ["readlink", "-f", root.currentBackgroundLink]
+    stdout: StdioCollector {
+      onStreamFinished: root.wallpaperPath = String(text || "").trim()
+    }
   }
 
   onCardCountChanged: {
